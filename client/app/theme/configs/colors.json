@@ -1,0 +1,10 @@
+{
+  "primary": "#5A758C",
+  "secondary": "#ADC5D9",
+  "info": "#2D2A8C",
+  "success": "#35848C",
+  "warning": "#F2A03D",
+  "danger": "#D96A6A",
+  "light": "#FDFDF8",
+  "dark": "#152026"
+}

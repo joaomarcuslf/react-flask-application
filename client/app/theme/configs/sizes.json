@@ -1,0 +1,12 @@
+{
+  "sizeSmall": "0.75rem",
+  "sizeNormal": "1rem",
+  "sizeMedium": "1.25rem",
+  "sizeLarge": "1.5rem",
+
+  "screenBig": "1800px",
+  "screenDesktop": "1200px",
+  "screenLandscapeTablet": "900px",
+  "screenPortraitTablet": "600px",
+  "screenPhone": "599px"
+}
