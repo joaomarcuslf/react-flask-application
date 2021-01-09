@@ -1,5 +1,11 @@
+import re
+import datetime
+from email_validator import validate_email, EmailNotValidError
+
 from flask import request, jsonify
 from flask_restful import Resource
+from marshmallow.exceptions import ValidationError
+from sqlalchemy.exc import IntegrityError, DataError
 from models import db, User, UserSchema
 
 users_schema = UserSchema(many=True)
@@ -13,91 +19,172 @@ class UsersResource(Resource):
         return {'status': 'success', 'data': users}, 200
 
     def post(self):
-        json_data = request.get_json(force=True)
+        try:
+            user = User.query.filter_by(email=request.json.get('email')).first()
 
-        if not json_data:
-            return {'status': 'error', 'message': 'No input data provided'}, 400
+            if user:
+                return {'status': 'error', 'message': 'User already exists'}, 400
 
-        data, errors = user_schema.load(json_data)
+            validate_email(request.json.get('email'))
 
-        if errors:
-            return errors, 422
+            if (request.json.get('gender') not in [ 'M', 'F', 'N' ] or len(request.json.get('gender')) != 1):
+                return {
+                    'status': 'error',
+                    'message': 'Invalid gender',
+                    'invalid_field': 'gender'
+                }, 400
 
-        user = User.query.filter_by(name=data['email']).first()
+            if (not request.json.get('birthdate') or len(request.json.get('birthdate')) != 10):
+                return {
+                    'status': 'error',
+                    'message': 'Invalid date format',
+                    'invalid_field': 'birthdate'
+                }, 400
 
-        if user:
-            return {'status': 'error', 'message': 'User already exists'}, 400
+            datetime.datetime.strptime(request.json.get('birthdate'), '%Y-%m-%d')
 
-        user = User(
-            email=json_data['email'],
-            name=json_data['name'],
-            birthdate=json_data['birthdate'],
-            gender=json_data['gender'],
-            additional_info=json_data['additional_info'],
-        )
+            user = User(
+                email=request.json.get('email'),
+                name=request.json.get('name'),
+                birthdate=request.json.get('birthdate'),
+                gender=request.json.get('gender'),
+                additional_info=request.json.get('additional_info'),
+            )
 
-        db.session.add(user)
-        db.session.commit()
+            db.session.add(user)
+            db.session.commit()
 
-        result = user_schema.dump(user).data
+            result = user_schema.dump(user)
 
-        return { "status": 'success', 'data': result }, 201
+            return { "status": 'success', 'data': result }, 201
+        except ValidationError as err:
+            errors = {}
+
+            for key in err:
+                errors[key] = err[key]
+
+            return {'status': 'error', 'data': errors}, 400
+        except EmailNotValidError as err:
+            return {
+                'status': 'error',
+                'message': 'Invalid E-mail',
+                'invalid_field': 'email'
+            }, 400
+        except IntegrityError as err:
+            error_message = str(err.__dict__.get('orig'))
+
+            return {
+                'status': 'error',
+                'message': error_message,
+                'invalid_field': re.search(r'"([A-Za-z0-9_\./\\-]*)"', error_message).group(1)
+            }, 400
+        except ValueError as err:
+            return {
+                'status': 'error',
+                'message': 'Invalid Date',
+                'invalid_field': 'birthdate'
+            }, 400
 
 
 
 class UserResource(Resource):
     def get(self, userid):
-        user = User.query.get(userid)
-        user = user.__dict__
-        del user['_sa_instance_state']
+        try:
+            user = User.query.get(userid)
 
-        if not user:
-            return {'status': 'error', 'message': 'User does not exist'}, 404
+            if not user:
+                return {'status': 'error', 'message': 'User does not exist'}, 404
 
-        print(user)
+            user = user_schema.dump(user)
 
-        return {'status': 'success', 'data': user}, 200
+            return {'status': 'success', 'data': user}, 200
+        except ValidationError as err:
+            errors = {}
+
+            print(err)
+
+            for key in err:
+                errors[key] = err[key]
+
+            return {'status': 'error', 'data': errors}, 400
 
     def put(self, userid):
-        json_data = request.get_json(force=True)
+        try:
+            user = User.query.get(userid)
 
-        if not json_data:
-            return {'status': 'error', 'message': 'No input data provided'}, 400
+            if not user:
+                return {'status': 'error', 'message': 'User does not exist'}, 400
 
-        data, errors = user_schema.load(json_data)
+            validate_email(request.json.get('email'))
 
-        if errors:
-            return errors, 422
+            if (request.json.get('gender') not in [ 'M', 'F', 'N' ] or len(request.json.get('gender')) != 1):
+                return {
+                    'status': 'error',
+                    'message': 'Invalid gender',
+                    'invalid_field': 'gender'
+                }, 400
 
+            if (not request.json.get('birthdate') or len(request.json.get('birthdate')) != 10):
+                return {
+                    'status': 'error',
+                    'message': 'Invalid date format',
+                    'invalid_field': 'birthdate'
+                }, 400
+
+            datetime.datetime.strptime(request.json.get('birthdate'), '%Y-%m-%d')
+
+            if 'email' in request.json:
+                user.email = request.json.get('email')
+            if 'name' in request.json:
+                user.name = request.json.get('name')
+            if 'birthdate' in request.json:
+                user.birthdate = request.json.get('birthdate')
+            if 'gender' in request.json:
+                user.gender = request.json.get('gender')
+            if 'additional_info' in request.json:
+                user.additional_info = request.json.get('additional_info')
+
+            db.session.commit()
+            data = user_schema.dump(user)
+
+            return { 'status': 'success', 'data': data }, 201
+        except ValidationError as err:
+            errors = {}
+
+            for key in err:
+                errors[key] = err[key]
+
+            return {'status': 'error', 'data': errors}, 400
+        except EmailNotValidError as err:
+            return {
+                'status': 'error',
+                'message': 'Invalid E-mail',
+                'invalid_field': 'email'
+            }, 400
+        except IntegrityError as err:
+            error_message = str(err.__dict__.get('orig'))
+
+            return {
+                'status': 'error',
+                'message': error_message,
+                'invalid_field': re.search(r'"([A-Za-z0-9_\./\\-]*)"', error_message).group(1)
+            }, 400
+        except ValueError as err:
+            return {
+                'status': 'error',
+                'message': 'Invalid Date',
+                'invalid_field': 'birthdate'
+            }, 400
+
+    def delete(self, userid):
         user = User.query.get(userid)
 
         if not user:
-            return {'status': 'error', 'message': 'User does not exist'}, 400
+            return {'status': 'error', 'message': 'User does not exists'}, 400
 
-        user = user
-        user = user.__dict__
-        del user['_sa_instance_state']
-
-        user.email = data['email'] or user['email'],
-        user.name = data['name'] or user['name'],
-        user.birthdate = data['birthdate'] or user['birthdate'],
-        user.gender = data['gender'] or user['gender'],
-        user.additional_info = data['additional_info'] or user['additional_info'],
-
+        db.session.delete(user)
         db.session.commit()
 
-        result = user_schema.dump(user).data
+        result = user_schema.dump(user)
 
-        return { "status": 'success', 'data': result }, 204
-
-    def delete(self, userid):
-        user = User.query.get(id=userid)
-
-        if not user:
-            return {'status': 'error', 'message': 'User does not exist'}, 400
-
-        db.session.commit()
-
-        result = user_schema.dump(user).data
-
-        return { "status": 'success', 'data': result}, 204
+        return { "status": 'success', 'data': result}, 201

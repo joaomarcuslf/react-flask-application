@@ -4,6 +4,7 @@ services:
     client:
         build: ./client
         command: npm run dev
+        network_mode: "host"
         volumes:
             - ./client:/usr/app/
             - /usr/app/node_modules

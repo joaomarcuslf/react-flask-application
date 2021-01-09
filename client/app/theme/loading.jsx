@@ -1,6 +1,6 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
-import { ModalWrapper, ModalBackground } from "./modal";
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
+import { ModalWrapper, ModalBackground } from './modal';
 
 export const Loading = () => (
   <ModalWrapper isOpen>

@@ -1,22 +1,40 @@
-import React from "react";
+import React from 'react';
 
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route } from 'react-router-dom';
 
-import Home from "./pages/home";
+import UsersList from './views/users/list';
+import UserShow from './views/users/show';
+import UserEdit from './views/users/edit';
+import UserDelete from './views/users/delete';
 
 const App = () => (
   <>
     <Switch>
-      <Route path="/" exact>
-        <Home />
+      <Route path="/users" exact>
+        <UsersList />
       </Route>
+
+      <Route
+        path="/user/:userid/edit"
+        exact
+        render={(props) => <UserEdit userid={props.match.params.userid} />}
+      />
+      <Route
+        path="/user/:userid/delete"
+        exact
+        render={(props) => <UserDelete userid={props.match.params.userid} />}
+      />
+
+      <Route
+        path="/user/:userid"
+        exact
+        render={(props) => <UserShow userid={props.match.params.userid} />}
+      />
 
       <Route
         component={({ location }) => (
           <h3>
-            Rota não encontrada
-{' '}
-<code>{location.pathname}</code>
+            Route not found: <code>{location.pathname}</code>
           </h3>
         )}
       />

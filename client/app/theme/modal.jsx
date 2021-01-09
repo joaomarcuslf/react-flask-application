@@ -1,22 +1,22 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import colors from "./configs/colors.json";
-import sizes from "./configs/sizes.json";
+import colors from './configs/colors.json';
+import sizes from './configs/sizes.json';
 
 export const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-  width: ${(props) => (props.isOpen ? "100vw" : "")};
-  height: ${(props) => (props.isOpen ? "100vh" : "")};
+  width: ${(props) => (props.isOpen ? '100vw' : '')};
+  height: ${(props) => (props.isOpen ? '100vh' : '')};
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 export const ModalBackground = styled.div`
-  display: ${(props) => (props.isOpen ? "flex" : "none")};
+  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
 
   position: fixed;
   top: 0;
@@ -27,7 +27,7 @@ export const ModalBackground = styled.div`
 `;
 
 export const ModalView = styled.div`
-  display: ${(props) => (props.isOpen ? "flex" : "none")};
+  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
   flex-direction: column;
 
   background: #f1f1f1;
@@ -37,17 +37,17 @@ export const ModalView = styled.div`
 
   ${(props) => {
     switch (props.size) {
-      case "large":
+      case 'large':
         return `
           max-width: 80vw;
           max-height: 80vh;
         `;
-      case "medium":
+      case 'medium':
         return `
           max-width: 70vw;
           max-height: 70vh;
         `;
-      case "small":
+      case 'small':
       default:
         return `
           max-width: 50vw;
@@ -56,7 +56,7 @@ export const ModalView = styled.div`
     }
   }}
 
-  ${(props) => (props.width ? `width: ${props.width};` : "")}
+  ${(props) => (props.width ? `width: ${props.width};` : '')}
 `;
 
 export const ModalTitle = styled.h2`
@@ -77,7 +77,7 @@ export const ModalAction = styled.button`
   border: none;
   color: ${(props) => (props.isError ? colors.danger : colors.dark)};
   color: ${(props) => (props.isError ? colors.danger : colors.dark)};
-  opacity: ${(props) => (props.disabled ? ".3" : "1")};
+  opacity: ${(props) => (props.disabled ? '.3' : '1')};
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;

@@ -3,9 +3,11 @@ flask_sqlalchemy==2.4.1
 gunicorn==20.0.4
 psycopg2-binary==2.8.4
 
+flask-cors
 flask_restful
 flask_script
 flask_migrate
 marshmallow
 flask_marshmallow
 marshmallow-sqlalchemy
+email-validator

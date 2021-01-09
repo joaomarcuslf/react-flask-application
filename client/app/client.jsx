@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import App from ".";
-import { hydratatePage } from "./helpers/views";
+import App from '.';
+import { hydratatePage } from './helpers/views';
 
-hydratatePage(<App />, "root");
+hydratatePage(<App />, 'root');
