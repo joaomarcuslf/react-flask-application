@@ -65,7 +65,11 @@ const SelectInput = ({
       disabled={disabled}
       name={name}
     >
-      {options.map(option => ( <option key={option.value} value={option.value}>{option.text}</option> ))}
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.text}
+        </option>
+      ))}
     </FormSelect>
   );
 };
@@ -82,7 +86,7 @@ export default function ControlledInput({
 }) {
   const [inputValue, onChangeText] = React.useState(value || placeholder);
 
-  switch(type) {
+  switch (type) {
     case 'calendar':
       return (
         <CalendarInput
@@ -143,5 +147,4 @@ export default function ControlledInput({
         />
       );
   }
-
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useHistory } from 'react-router-dom';
 
-import {get} from "lodash"
+import { get } from 'lodash';
 
 import useFetchUser from '../../hooks/users/useFetchUser';
 import useUpdateUser from '../../hooks/users/useUpdateUser';
@@ -79,7 +79,7 @@ const UsersEdit = ({ userid }) => {
               ]}
               onSubmit={(body) =>
                 updateHook.thrigger(body).then((response) => {
-                  if (response.status === "error") {
+                  if (response.status === 'error') {
                     throw response;
                   }
 

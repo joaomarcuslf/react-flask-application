@@ -11,6 +11,14 @@
 
     Test it out at [http://localhost:5000](http://localhost:5000). The "web" folder is mounted into the container and your code changes apply automatically.
 
+## Useful Commands
+
+```
+$ docker-compose exec api pytest -v
+$ docker-compose exec api pip install -r requirements.txt
+$ docker-compose exec api python run.py seed_db
+```
+
 ## What should have:
 
 - React

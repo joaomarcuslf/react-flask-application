@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development run-p start:dev-server start:webpack",
     "start": "cross-env NODE_ENV=production npm run build:front & npm run start:prod-server",
-    "lint": "eslint app --ext .js,.jsx --fix",
+    "lint": "eslint app --ext .js,.jsx",
     "start:dev-server": "nodemon --exec babel-node app/server.js",
     "start:prod-server": "babel-node app/server.js",
     "start:front-server": "cross-env NODE_ENV=development webpack-dev-server",

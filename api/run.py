@@ -1,7 +1,9 @@
 from flask.cli import FlaskGroup
 
-from application import app
+from application import create_app
 from models import db, User
+
+app = create_app()
 
 cli = FlaskGroup(app)
 
@@ -24,9 +26,9 @@ def seed_db():
         additional_info=""
     ))
 
-    i = 0
+    i = 1
 
-    while i != 9:
+    while i != 13:
         g = ''
 
         if i / 2 == 0:

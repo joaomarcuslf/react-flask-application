@@ -76,7 +76,9 @@ export default function FormBuilder({
         {inputs.map((props = defaultInputProps, index) => {
           const [value, onChange] = inputsControl[index];
 
-          const error = value !== undefined && hasError(props, value) || invalidFields.includes(props.name);
+          const error =
+            (value !== undefined && hasError(props, value)) ||
+            invalidFields.includes(props.name);
 
           return (
             <FormGroup label={props.label} name={props.name} error={error}>
@@ -137,9 +139,9 @@ export default function FormBuilder({
           )
             .then(() => onLoadChange(false))
             .catch((data) => {
-              setInvalidFields([ data.invalid_field ]);
+              setInvalidFields([data.invalid_field]);
 
-              onLoadChange(false)
+              onLoadChange(false);
             });
         }}
       >
