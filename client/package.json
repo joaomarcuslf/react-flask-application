@@ -7,6 +7,7 @@
     "dev": "cross-env NODE_ENV=development run-p start:dev-server start:webpack",
     "start": "cross-env NODE_ENV=production npm run build:front & npm run start:prod-server",
     "lint": "eslint app --ext .js,.jsx",
+    "test": "jest",
     "start:dev-server": "nodemon --exec babel-node app/server.js",
     "start:prod-server": "babel-node app/server.js",
     "start:front-server": "cross-env NODE_ENV=development webpack-dev-server",
@@ -20,8 +21,6 @@
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/polyfill": "^7.10.4",
-    "@babel/preset-env": "^7.10.4",
-    "@babel/preset-react": "^7.10.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-brands-svg-icons": "^5.14.0",
     "@fortawesome/free-regular-svg-icons": "^5.14.0",
@@ -82,9 +81,14 @@
     "webpack-merge": "^4.2.2"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "babel-jest": "^26.6.3",
+    "jest": "^26.6.3",
     "nodemon": "^2.0.4",
     "npm-run-all": "^4.1.5",
-    "prettier": "2.2.1"
+    "prettier": "2.2.1",
+    "react-test-renderer": "^17.0.1"
   },
   "engines": {
     "node": "^12.16.1",

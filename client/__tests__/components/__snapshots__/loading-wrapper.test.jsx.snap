@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingWrapper shows an loading text before showing the real component 1`] = `
+<div
+  className="base__Container-sc-1fd1e17-0 daUREX"
+>
+  <div
+    className="base__Row-sc-1fd1e17-1 hbvSyV"
+    direction="column"
+  >
+    <h3
+      className="base__Subtitle-sc-1fd1e17-4 evAyce"
+    >
+      Loading...
+    </h3>
+  </div>
+</div>
+`;
+
+exports[`LoadingWrapper shows the error message if it is provided 1`] = `
+<div
+  className="base__Container-sc-1fd1e17-0 daUREX"
+>
+  <div
+    className="base__Row-sc-1fd1e17-1 hbvSyV"
+    direction="column"
+  >
+    <div
+      className="base__Column-sc-1fd1e17-2 eIFjkW"
+    >
+      <h1
+        className="base__Title-sc-1fd1e17-3 folmnf"
+      >
+        Request Error.
+      </h1>
+    </div>
+    <div
+      className="base__Column-sc-1fd1e17-2 eIFjkW"
+    >
+      <h3
+        className="base__Subtitle-sc-1fd1e17-4 kyYsDJ"
+      >
+        Error
+      </h3>
+    </div>
+    <div
+      className="base__Column-sc-1fd1e17-2 eIFjkW"
+    >
+      <button
+        className="form__FormButton-vl64uu-5 nOgZl"
+        disabled={false}
+        onClick={[Function]}
+      >
+        Back
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`LoadingWrapper shows the provided child when everything is fine 1`] = `"Test"`;

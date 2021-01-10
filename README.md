@@ -1,6 +1,8 @@
 # React Flask Application
 
 ![Actions Workflow](https://github.com/joaomarcuslf2/react-flask-application/workflows/Flask/badge.svg)
+
+![Actions Workflow](https://github.com/joaomarcuslf2/react-flask-application/workflows/React/badge.svg)
 ## How to Start Development
 
 1. Copy ```sample.env.dev``` to ```.env.dev``` and rename the variables if you need
@@ -8,6 +10,7 @@
 
     ```sh
     $ docker-compose up -d --build
+    $ docker-compose exec api python run.py create_db # Only needed the first time
     ```
 
     - WEB: [http://localhost:5000](http://localhost:5000).
@@ -16,6 +19,7 @@
 ## Useful Commands
 
 ```
+$ docker-compose exec client npm run test
 $ docker-compose exec api pytest -v
 $ docker-compose exec api pip install -r requirements.txt
 $ docker-compose exec api python run.py seed_db

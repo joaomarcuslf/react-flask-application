@@ -85,7 +85,6 @@ class UserResource(Resource):
 
             return success_data(data)
         except ValidationError as err:
-            print (err)
             errors = {}
 
             for key in err:
