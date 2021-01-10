@@ -36,32 +36,36 @@ class UserResource(Resource):
             if not user:
                 return {'status': 'error', 'message': 'User does not exist'}, 400
 
-            validate_email(request.json.get('email'))
-
-            if (request.json.get('gender') not in [ 'M', 'F', 'N' ] or len(request.json.get('gender')) != 1):
-                return {
-                    'status': 'error',
-                    'message': 'Invalid gender',
-                    'invalid_field': 'gender'
-                }, 400
-
-            if (not request.json.get('birthdate') or len(request.json.get('birthdate')) != 10):
-                return {
-                    'status': 'error',
-                    'message': 'Invalid date format',
-                    'invalid_field': 'birthdate'
-                }, 400
-
-            datetime.datetime.strptime(request.json.get('birthdate'), '%Y-%m-%d')
-
             if 'email' in request.json:
+                validate_email(request.json.get('email'))
                 user.email = request.json.get('email')
+
             if 'name' in request.json:
                 user.name = request.json.get('name')
+
             if 'birthdate' in request.json:
+                birthdate = datetime.datetime.strptime(request.json.get('birthdate'), '%Y-%m-%d').date()
+                present = datetime.date.today()
+
+                if ((present - birthdate).days < 0):
+                    return {
+                        'status': 'error',
+                        'message': 'Date cannot begreater than today',
+                        'invalid_field': 'birthdate'
+                    }, 400
+
                 user.birthdate = request.json.get('birthdate')
+
             if 'gender' in request.json:
+                if (request.json.get('gender') not in [ 'M', 'F', 'N' ] or len(request.json.get('gender')) != 1):
+                    return {
+                        'status': 'error',
+                        'message': 'Invalid gender',
+                        'invalid_field': 'gender'
+                    }, 400
+
                 user.gender = request.json.get('gender')
+
             if 'additional_info' in request.json:
                 user.additional_info = request.json.get('additional_info')
 
