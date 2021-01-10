@@ -1,5 +1,6 @@
 # React Flask Application
 
+![Actions Workflow](https://github.com/joaomarcuslf2/react-flask-application/workflows/Flask/badge.svg)
 ## How to Start Development
 
 1. Copy ```sample.env.dev``` to ```.env.dev``` and rename the variables if you need
