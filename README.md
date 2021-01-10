@@ -14,7 +14,7 @@
     ```
 
     - WEB: [http://localhost:3000/users](http://localhost:3000/users)
-    - API: [http://localhost:5000](http://localhost:5000)
+    - API: [http://localhost:5000/api/v1/users](http://localhost:5000/api/v1/users)
 
 ## Useful Commands
 
