@@ -13,8 +13,8 @@
     $ docker-compose exec api python run.py create_db # Only needed the first time
     ```
 
-    - WEB: [http://localhost:3000/users](http://localhost:3000/users).
-    - API: [http://localhost:5000](http://localhost:5000).
+    - WEB: [http://localhost:3000/users](http://localhost:3000/users)
+    - API: [http://localhost:5000](http://localhost:5000)
 
 ## Useful Commands
 
