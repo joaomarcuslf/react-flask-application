@@ -8,6 +8,7 @@ ma = Marshmallow()
 db = SQLAlchemy()
 migrate = Migrate()
 
+
 class User(db.Model):
     __tablename__ = "users"
 
@@ -15,7 +16,7 @@ class User(db.Model):
 
     email = db.Column(db.String(128), unique=True, nullable=False)
     name = db.Column(db.String(128), nullable=False)
-    birthdate = db.Column(db.String(10), nullable=False) # YYYY-MM-DD
+    birthdate = db.Column(db.String(10), nullable=False)  # YYYY-MM-DD
     gender = db.Column(db.String(1), nullable=False)
 
     additional_info = db.Column(db.Text())
@@ -28,6 +29,7 @@ class User(db.Model):
         self.birthdate = birthdate
         self.gender = gender
         self.additional_info = additional_info
+
 
 class UserSchema(ma.Schema):
     id = fields.Integer()

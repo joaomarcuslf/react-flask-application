@@ -14,7 +14,9 @@ RUN apt-get update && apt-get install -y netcat
 # install dependencies
 RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/app/requirements.txt
+COPY ./requirements.test.txt /usr/src/app/requirements.test.txt
 RUN pip install -r requirements.txt
+RUN pip install -r requirements.test.txt
 
 COPY . /usr/src/app/
 

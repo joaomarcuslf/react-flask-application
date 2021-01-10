@@ -11,3 +11,5 @@ marshmallow
 flask_marshmallow
 marshmallow-sqlalchemy
 email-validator
+pylint
+autopep8

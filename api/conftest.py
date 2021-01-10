@@ -3,6 +3,7 @@ import pytest
 from application import create_app
 from models import db, User
 
+
 @pytest.fixture
 def test_app():
     app = create_app(testing=True)
@@ -10,6 +11,7 @@ def test_app():
 
     with app.app_context():
         yield app
+
 
 @pytest.fixture
 def test_client(test_app):
@@ -19,6 +21,7 @@ def test_client(test_app):
         yield client
         db.session.remove()
         db.drop_all()
+
 
 @pytest.fixture
 def test_client_with_user(test_app):
@@ -38,6 +41,7 @@ def test_client_with_user(test_app):
         db.session.remove()
         db.drop_all()
 
+
 @pytest.fixture
 def test_db(test_app):
     db.drop_all()
@@ -45,4 +49,3 @@ def test_db(test_app):
     yield test_db
     db.session.remove()
     db.drop_all()
-

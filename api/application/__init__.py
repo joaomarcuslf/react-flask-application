@@ -4,6 +4,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
 
+
 def create_app(testing=False):
     app = Flask(__name__)
 
@@ -25,4 +26,5 @@ def create_app(testing=False):
     def hello_world():
         return "Ok"
 
+    print('Return App')
     return app

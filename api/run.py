@@ -1,13 +1,17 @@
 from flask.cli import FlaskGroup
 
 from application import create_app
-from models import db, User
 
 app = create_app()
 
+from models import db, User
+
+print('FlaskGroup')
 cli = FlaskGroup(app)
 
+print('Db.init_App')
 db.init_app(app)
+
 
 @cli.command("create_db")
 def create_db():
@@ -29,18 +33,17 @@ def seed_db():
     i = 1
 
     while i != 13:
-        g = ''
+        gender = ''
 
         if i / 2 == 0:
-            g = 'F'
+            gender = 'F'
         else:
-            g ='M'
+            gender = 'M'
 
-        email=f'user{i}@gmail.com',
-        name=f'User {i}',
-        birthdate=f'2000-0{i}-{i}',
-        gender=g,
-        additional_info=""
+        email = f'user{i}@gmail.com',
+        name = f'User {i}',
+        birthdate = f'2000-0{i}-{i}',
+        additional_info = ""
 
         db.session.add(User(
             email=email,
