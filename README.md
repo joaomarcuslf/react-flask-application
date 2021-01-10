@@ -11,6 +11,7 @@
     ```sh
     $ docker-compose up -d --build
     $ docker-compose exec api python run.py create_db # Only needed the first time
+    $ docker-compose exec api python run.py seed_db # Only needed the first time
     ```
 
     - WEB: [http://localhost:3000/users](http://localhost:3000/users)
