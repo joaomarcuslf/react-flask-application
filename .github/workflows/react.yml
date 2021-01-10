@@ -11,7 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
     - name: Install modules
-      run: yarn
+      run: |
+        cd client
+        yarn
+
     - name: Run tests
-      run: yarn test
+      run: |
+        cd client
+        yarn test
