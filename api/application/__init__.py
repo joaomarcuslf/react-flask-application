@@ -14,6 +14,10 @@ def create_app(testing=False):
 
     if testing:
         app.config["TESTING"] = True
+    else:
+        from models import db
+
+        db.init_app(app)
 
     api = Api(app)
 
@@ -26,5 +30,4 @@ def create_app(testing=False):
     def hello_world():
         return "Ok"
 
-    print('Return App')
     return app

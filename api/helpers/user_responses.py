@@ -15,11 +15,11 @@ def success_delete_data():
 
 
 def success_data(data):
-    generic_success(data, ok)
+    return generic_success(data, ok)
 
 
 def created_data(data):
-    generic_success(data, created)
+    return generic_success(data, created)
 
 
 def user_does_not_exists():
@@ -70,8 +70,8 @@ def date_cannot_be_greater_than_today():
 def no_email_provided():
     return {
         'status': 'error',
-        'message': 'No name provided',
-        'invalid_field': 'name'
+        'message': 'No e-mail provided',
+        'invalid_field': 'email'
     }, bad_request
 
 
@@ -79,7 +79,7 @@ def invalid_email():
     return {
         'status': 'error',
         'message': 'Invalid E-mail',
-        'invalid_field': 'name'
+        'invalid_field': 'email'
     }, bad_request
 
 

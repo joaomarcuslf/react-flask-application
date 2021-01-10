@@ -6,16 +6,10 @@ app = create_app()
 
 from models import db, User
 
-print('FlaskGroup')
 cli = FlaskGroup(app)
-
-print('Db.init_App')
-db.init_app(app)
-
 
 @cli.command("create_db")
 def create_db():
-    db.drop_all()
     db.create_all()
     db.session.commit()
 
@@ -42,7 +36,7 @@ def seed_db():
 
         email = f'user{i}@gmail.com',
         name = f'User {i}',
-        birthdate = f'2000-0{i}-{i}',
+        birthdate = f'2000-0{i%9}-{i}',
         additional_info = ""
 
         db.session.add(User(
