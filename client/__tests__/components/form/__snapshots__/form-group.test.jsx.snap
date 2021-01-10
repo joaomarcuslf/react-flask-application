@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormGroup wraps the visualization for the input showing it's label 1`] = `
+<label
+  className="form__FormLabel-vl64uu-1 hGProG"
+  for="test"
+>
+  Test Label
+  :
+  Test
+</label>
+`;
