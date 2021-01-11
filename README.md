@@ -27,8 +27,3 @@ $ docker-compose exec api python run.py seed_db
 $ docker-compose exec api python -m pylint application helpers models resources run.py
 $ docker-compose exec api python -m autopep8 --in-place --aggressive --aggressive application/config.py  application/__init__.py helpers/http_status.py helpers/user_responses.py models/__init__.py resources/__init__.py  resources/test_user_resource.py  resources/test_users_resource.py  resources/user_resource.py  resources/users_resource.py run.py
 ```
-
-## What should have:
-
-- Migration
-- JWT
