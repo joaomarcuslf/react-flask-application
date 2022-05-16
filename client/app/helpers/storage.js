@@ -1,39 +1,45 @@
 const CookieStorage = {
   get(key) {
-    const name = `${key}=`;
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i += 1) {
-      let c = ca[i];
+    return new Promise((resolve) => {
+      const name = `${key}=`;
+      const decodedCookie = decodeURIComponent(document.cookie);
+      const ca = decodedCookie.split(';');
+      for (let i = 0; i < ca.length; i += 1) {
+        let c = ca[i];
 
-      while (c.charAt(0) === ' ') {
-        c = c.substring(1);
+        while (c.charAt(0) === ' ') {
+          c = c.substring(1);
+        }
+
+        if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length);
+        }
       }
 
-      if (c.indexOf(name) === 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-
-    return null;
+      return resolve(null);
+    })
   },
   set(key, value, exdays = 9999) {
-    const d = new Date();
+    return new Promise((resolve) => {
+      const d = new Date();
 
-    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+      d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
 
-    const expires = `expires=${d.toUTCString()}`;
+      const expires = `expires=${d.toUTCString()}`;
 
-    document.cookie = `${key}=${value};${expires};path=/`;
+      document.cookie = `${key}=${value};${expires};path=/`;
+
+      resolve()
+    })
   },
 };
 
 const LocalStorage = {
   get(key) {
-    localStorage.getItem(key);
+    return localStorage.getItem(key);
   },
   set(key, value) {
-    localStorage.setItem(key, value);
+    return localStorage.setItem(key, value);
   },
 };
 
